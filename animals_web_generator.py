@@ -9,47 +9,48 @@ def load_data(file_path):
         return json.load(handle)
 
 
+def serialize_animal(animal_obj):
+    """ Serialize an animal object """
+    output = ''
+    output += '<li class="cards__item">'
+
+    # Name zuordnen und ausgeben
+    name = animal_obj.get('name')
+    if name:
+        output += f'<div class="card__title">{name}</div>'
+
+    output += '<p class="card__text">'
+
+    # Sind Characteristics vorhanden? Dann Diet zuordnen und ausgeben
+    characteristics = animal_obj.get('characteristics')
+    if characteristics:
+        diet = characteristics.get('diet')
+        if diet:
+            output += f'<strong>Diet:</strong> {diet}<br/>'
+
+    # Sind Locations vorhanden und die Liste nicht None UND nicht eine leere Liste []?
+    # Dann ersten Ort aus Locations zuordnen und ausgeben
+    locations = animal_obj.get('locations')
+    if locations:
+        erster_ort = locations[0]
+        output += f'<strong>Location:</strong> {erster_ort}<br/>'
+
+    # Sind Characteristics vorhanden? Dann Type zuordnen und ausgeben
+    if characteristics:
+        type = characteristics.get('type')
+        if type:
+            output += f'<strong>Type:</strong> {type}<br/>'
+
+    output += '</p>'
+    output += '</li>'
+    return output
+
+
 def get_animal_information(animals_data):
-    """ Shows information about animals (animals_data) from JSON file """
-    output = '' # leeren String für Ausgabe erstellen
-    for i in range(len(animals_data)):
-
-        output += '<li class="cards__item">'
-
-        # Name zuordnen und ausgeben
-        name = animals_data[i].get('name')
-        if name:
-            # output += f"Name: {name}<br/>\n"
-            output += f'<div class="card__title">{name}</div>'
-
-        output += '<p class="card__text">'
-
-        # Sind Characteristics vorhanden? Dann Diet zuordnen und ausgeben
-        characteristics = animals_data[i].get('characteristics')
-        if characteristics:
-            diet = characteristics.get('diet')
-            if diet:
-                # output += f"Diet: {diet}<br/>\n"
-                output += f'<strong>Diet:</strong> {diet}<br/>'
-
-        # Sind Locations vorhanden und die Liste nicht None UND nicht eine leere Liste []?
-        # Dann ersten Ort aus Locations zuordnen und ausgeben
-        locations = animals_data[i].get('locations')
-        if locations:
-            erster_ort = locations[0]
-            # output += f"Location: {erster_ort}<br/>\n"
-            output += f'<strong>Location:</strong> {erster_ort}<br/>'
-
-        # Sind Characteristics vorhanden? Dann Type zuordnen und ausgeben
-        if characteristics:
-            type = characteristics.get('type')
-            if type:
-                # output += f"Type: {type}<br/>\n"
-                output += f'<strong>Type:</strong> {type}<br/>'
-
-        output += '</p>'
-        output += '</li>'
-
+    """ Shows information about animal (animals_data) from JSON file """
+    output = ''
+    for animal_obj in animals_data:
+        output += serialize_animal(animal_obj)
     return output
 
 
@@ -83,22 +84,10 @@ if __name__ == '__main__':
 
 """
 **********************************************************************************
-Schritt 4 - Like A Pro
+
 **********************************************************************************
 
-Jetzt, da du weißt, wie man HTML mit Python generiert, ist es Zeit, das endgültige Design umzusetzen.
-Serialisierung
-Ändere die Serialisierung des Items wie folgt:
 
-xxx<li class="cards__item">
-xxx  <div class="card__title">Wire Fox Terrier</div>
-xxx <p class="card__text">
-xxx      <strong>Diet:</strong> Carnivore<br/>
-xxx      <strong>Location:</strong> North-America and Canada<br/>
-xxx      <strong>Type:</strong> mamal<br/>
-xxx  </p>
-xxxx</li>
-Das weißt du schon, wie das geht.
 
 
 """
