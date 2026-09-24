@@ -1,9 +1,9 @@
 import json
 
 def load_data(file_path):
-  """ Loads a JSON file """
-  with open(file_path, "r") as handle:
-    return json.load(handle)
+    """ Loads a JSON file """
+    with open(file_path, "r") as handle:
+        return json.load(handle)
 
 
 
@@ -67,7 +67,7 @@ def show_animal_information(animals_data):
 
 
 """#    MEINE TESTS - DIE MÜSSEN NOCH ENTFERNT WERDEN
-    
+
     print("\n=====================\n")
 
     print(f"Animals_data:\n{animals_data[0]}")
