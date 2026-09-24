@@ -13,32 +13,34 @@ def get_animal_information(animals_data):
     """ Shows information about animals (animals_data) from JSON file """
     output = '' # leeren String für Ausgabe erstellen
     for i in range(len(animals_data)):
+        output += '<li class="cards__item">'
         # Name zuordnen und ausgeben
         name = animals_data[i].get('name')
         if name:
-            output += f"Name: {name}\n"
+            output += f"Name: {name}<br/>\n"
 
         # Sind Characteristics vorhanden? Dann Diet zuordnen und ausgeben
         characteristics = animals_data[i].get('characteristics')
         if characteristics:
             diet = characteristics.get('diet')
             if diet:
-                output += f"Diet: {diet}\n"
+                output += f"Diet: {diet}<br/>\n"
 
         # Sind Locations vorhanden und die Liste nicht None UND nicht eine leere Liste []?
         # Dann ersten Ort aus Locations zuordnen und ausgeben
         locations = animals_data[i].get('locations')
         if locations:
             erster_ort = locations[0]
-            output += f"Location: {erster_ort}\n"
+            output += f"Location: {erster_ort}<br/>\n"
 
         # Sind Characteristics vorhanden? Dann Type zuordnen und ausgeben
         if characteristics:
             type = characteristics.get('type')
             if type:
-                output += f"Type: {type}\n"
+                output += f"Type: {type}<br/>\n"
 
         output += "\n"
+        output += '</li>'
 
     return output
 
@@ -72,34 +74,30 @@ if __name__ == '__main__':
     main()
 
 """
-
 **********************************************************************************
-4. Schreibe den neuen HTML-Inhalt in eine Datei
+Schritt 3 - Das Design anpassen
 **********************************************************************************
 
-Du hast jetzt einen String, der den vollständigen HTML-Inhalt enthält. Wenn du 
-ihn auf dem Bildschirm ausgibst, sollte er in etwa so aussehen:
+So geht’s
+Du solltest deinen bisherigen Code von:
 
-            <body>
-                <h1>My Animal Repository</h1>
-                <ul class="cards">
-        Name: American Foxhound
-        Diet: Omnivore
-        Location: North-America
-        Type: Hound
-        
-        Name: Arctic Fox
-        Diet: Carnivore
-        Location: Eurasia
-        Type: Mammal
-        ...
-            </ul>
-        </body>
-        
-Jetzt kannst du diesen String einfach in eine Datei namens animals.html 
-schreiben. Öffne die Datei im Browser und überprüfe, ob die Informationen 
-korrekt angezeigt werden.
+        output = ''  # define an empty string
+        for animal_data in data:
+            # append information to each string
+            output += f"Name: {animal_data['name']}\n"
+            output += f"Diet: {animal_data['characteristics']['diet']}\n"
+            ...
+        print(output)
 
-**********************************************************************************
-**********************************************************************************
+ändern zu:
+
+        output = ''  # define an empty string
+        for animal_data in data:
+            # append information to each string
+            output += '<li class="cards__item">'
+            output += f"Name: {animal_data['name']}<br/>\n"
+            output += f"Diet: {animal_data['characteristics']['diet']}<br/>\n"
+            ...
+            output += '</li>'
+        print(output)
 """
