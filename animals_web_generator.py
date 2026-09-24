@@ -13,33 +13,41 @@ def get_animal_information(animals_data):
     """ Shows information about animals (animals_data) from JSON file """
     output = '' # leeren String für Ausgabe erstellen
     for i in range(len(animals_data)):
+
         output += '<li class="cards__item">'
+
         # Name zuordnen und ausgeben
         name = animals_data[i].get('name')
         if name:
-            output += f"Name: {name}<br/>\n"
+            # output += f"Name: {name}<br/>\n"
+            output += f'<div class="card__title">{name}</div>'
+
+        output += '<p class="card__text">'
 
         # Sind Characteristics vorhanden? Dann Diet zuordnen und ausgeben
         characteristics = animals_data[i].get('characteristics')
         if characteristics:
             diet = characteristics.get('diet')
             if diet:
-                output += f"Diet: {diet}<br/>\n"
+                # output += f"Diet: {diet}<br/>\n"
+                output += f'<strong>Diet:</strong> {diet}<br/>'
 
         # Sind Locations vorhanden und die Liste nicht None UND nicht eine leere Liste []?
         # Dann ersten Ort aus Locations zuordnen und ausgeben
         locations = animals_data[i].get('locations')
         if locations:
             erster_ort = locations[0]
-            output += f"Location: {erster_ort}<br/>\n"
+            # output += f"Location: {erster_ort}<br/>\n"
+            output += f'<strong>Location:</strong> {erster_ort}<br/>'
 
         # Sind Characteristics vorhanden? Dann Type zuordnen und ausgeben
         if characteristics:
             type = characteristics.get('type')
             if type:
-                output += f"Type: {type}<br/>\n"
+                # output += f"Type: {type}<br/>\n"
+                output += f'<strong>Type:</strong> {type}<br/>'
 
-        output += "\n"
+        output += '</p>'
         output += '</li>'
 
     return output
@@ -75,29 +83,22 @@ if __name__ == '__main__':
 
 """
 **********************************************************************************
-Schritt 3 - Das Design anpassen
+Schritt 4 - Like A Pro
 **********************************************************************************
 
-So geht’s
-Du solltest deinen bisherigen Code von:
+Jetzt, da du weißt, wie man HTML mit Python generiert, ist es Zeit, das endgültige Design umzusetzen.
+Serialisierung
+Ändere die Serialisierung des Items wie folgt:
 
-        output = ''  # define an empty string
-        for animal_data in data:
-            # append information to each string
-            output += f"Name: {animal_data['name']}\n"
-            output += f"Diet: {animal_data['characteristics']['diet']}\n"
-            ...
-        print(output)
+xxx<li class="cards__item">
+xxx  <div class="card__title">Wire Fox Terrier</div>
+xxx <p class="card__text">
+xxx      <strong>Diet:</strong> Carnivore<br/>
+xxx      <strong>Location:</strong> North-America and Canada<br/>
+xxx      <strong>Type:</strong> mamal<br/>
+xxx  </p>
+xxxx</li>
+Das weißt du schon, wie das geht.
 
-ändern zu:
 
-        output = ''  # define an empty string
-        for animal_data in data:
-            # append information to each string
-            output += '<li class="cards__item">'
-            output += f"Name: {animal_data['name']}<br/>\n"
-            output += f"Diet: {animal_data['characteristics']['diet']}<br/>\n"
-            ...
-            output += '</li>'
-        print(output)
 """
