@@ -1,16 +1,14 @@
 import json
 
-from bs4 import BeautifulSoup
-
 
 def load_data(file_path):
-    """ Loads a JSON file """
+    """Loads a JSON file."""
     with open(file_path, "r") as handle:
         return json.load(handle)
 
 
 def serialize_animal(animal_obj):
-    """ Serialize an animal object to HTML string """
+    """Serialize an animal object to HTML string."""
     output = ''
     output += '<li class="cards__item">'
 
@@ -49,7 +47,7 @@ def serialize_animal(animal_obj):
 
 
 def get_animal_information(animals_data):
-    """ Shows information about animal (animals_data) from JSON file """
+    """Shows information about animal (animals_data) from JSON file."""
     output = ''
     for animal_obj in animals_data:
         output += serialize_animal(animal_obj)
@@ -63,13 +61,14 @@ def load_html(file_path):
     return html_data
 
 
-def replace_htmtl_template_with_animal_information(html_template, animal_information):
-    """ Replaces placeholder in HTML Template with animal_information from JSON """
+def replace_template_placeholders(html_template, animal_information):
+    """Replaces placeholder in HTML Template with animal_information from JSON."""
     new_html = html_template.replace("__REPLACE_ANIMALS_INFO__", animal_information)
     return new_html
 
 
 def write_new_html(file_path, new_html):
+    """New file from HTML-template plus animal_information."""
     with open(file_path, "w") as fileobj:
         fileobj.write(new_html)
 
@@ -78,18 +77,10 @@ def main():
     animals_data = load_data('animals_data.json')
     animal_information = get_animal_information(animals_data)
     html_template = load_html('animals_template.html')
-    new_html = replace_htmtl_template_with_animal_information(html_template, animal_information)
+    new_html = replace_template_placeholders(html_template, animal_information)
     write_new_html('animals.html', new_html)
 
 
 if __name__ == '__main__':
     main()
 
-"""
-**********************************************************************************
-BONUS
-**********************************************************************************
-
-Füge CSS-Klassen zum inneren <ul> und <li> hinzu, um die Formatierung auf eine 
-eise zu steuern, die dir gefällt.
-"""
