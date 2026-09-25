@@ -10,7 +10,7 @@ def load_data(file_path):
 
 
 def serialize_animal(animal_obj):
-    """ Serialize an animal object """
+    """ Serialize an animal object to HTML string """
     output = ''
     output += '<li class="cards__item">'
 
@@ -19,29 +19,30 @@ def serialize_animal(animal_obj):
     if name:
         output += f'<div class="card__title">{name}</div>'
 
-    output += '<p class="card__text">'
+    output += '<div class="card__text">'
+    output += '<ul>'
 
     # Sind Characteristics vorhanden? Dann Diet zuordnen und ausgeben
     characteristics = animal_obj.get('characteristics')
     if characteristics:
         diet = characteristics.get('diet')
         if diet:
-            output += f'<strong>Diet:</strong> {diet}<br/>'
+            output += f'<li><strong>Diet:</strong> {diet}</li>'
 
     # Sind Locations vorhanden und die Liste nicht None UND nicht eine leere Liste []?
     # Dann ersten Ort aus Locations zuordnen und ausgeben
     locations = animal_obj.get('locations')
     if locations:
         erster_ort = locations[0]
-        output += f'<strong>Location:</strong> {erster_ort}<br/>'
+        output += f'<li><strong>Location:</strong> {erster_ort}</li>'
 
     # Sind Characteristics vorhanden? Dann Type zuordnen und ausgeben
     if characteristics:
         type = characteristics.get('type')
         if type:
-            output += f'<strong>Type:</strong> {type}<br/>'
-
-    output += '</p>'
+            output += f'<li><strong>Type:</strong> {type}</li>'
+    output += '</ul>'
+    output += '</div>'
     output += '</li>'
     return output
 
@@ -62,6 +63,7 @@ def load_html(file_path):
 
 
 def replace_htmtl_template_with_animal_information(html_template, animal_information):
+    """ Replaces placeholder in HTML Template with animal_information from JSON """
     new_html = html_template.replace("__REPLACE_ANIMALS_INFO__", animal_information)
     return new_html
 
@@ -84,10 +86,9 @@ if __name__ == '__main__':
 
 """
 **********************************************************************************
-
+BONUS
 **********************************************************************************
 
-
-
-
+Füge CSS-Klassen zum inneren <ul> und <li> hinzu, um die Formatierung auf eine 
+eise zu steuern, die dir gefällt.
 """
